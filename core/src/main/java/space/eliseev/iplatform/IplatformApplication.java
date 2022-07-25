@@ -8,7 +8,7 @@
  * Legal use of the software provides receipt of a license from the right holder only.
  */
 
-package space.eliseev.iplatform;
+package main.java.space.eliseev.iplatform;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
