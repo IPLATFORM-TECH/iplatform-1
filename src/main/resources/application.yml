@@ -1,3 +1,11 @@
 spring:
   application:
     name: i-platform
+  data:
+    mongodb:
+      database: MongoDemo
+      uri: mongodb://localhost:27018/test
+      port: 27017
+      host: localhost
+#  datasource:
+#    driver-class-name:

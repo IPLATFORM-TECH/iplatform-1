@@ -18,9 +18,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication
 public class IplatformApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(IplatformApplication.class, args);
     }
-
 }
