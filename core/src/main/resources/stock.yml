@@ -1,0 +1,12 @@
+stock:
+  urls:
+    - "www.google.com"
+    - "www.youtube.com"
+    - "microsoft.com"
+    - "www.github.com"
+    - "www.baeldung.com"
+    - "www.yandex.ru"
+    - "www.vk.com"
+    - "www.habr.com"
+    - "stackoverflow.com"
+    - "trello.com"
