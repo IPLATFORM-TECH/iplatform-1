@@ -29,7 +29,6 @@ public class DataServiceImpl implements DataService {
     @Override
     public void updateData(Data newData) {
         dataRepository.save(newData);
-
     }
 
     @Override
