@@ -2,6 +2,7 @@ package space.eliseev.iplatform.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import space.eliseev.iplatform.entity.Data;
 import space.eliseev.iplatform.repository.DataRepository;
 
@@ -10,13 +11,14 @@ import java.util.Optional;
 
 @AllArgsConstructor
 @Service
+@Transactional
 public class DataServiceImpl implements DataService {
 
     private DataRepository dataRepository;
 
     @Override
-    public Data findDataBySource(String name) {
-        return dataRepository.findDataBySource(name);
+    public Optional<Data> findDataBySource(String source) {
+        return dataRepository.findDataBySource(source);
     }
 
     @Override
@@ -25,18 +27,19 @@ public class DataServiceImpl implements DataService {
     }
 
     @Override
-    public Data updateData(Data newData) {
+    public void updateData(Data newData) {
         Optional<Data> optData = dataRepository.findById(newData.getId());
-        if(optData.isPresent()) {
-            Data dataForDb = optData.get();
-            dataForDb.setDataField(newData.getDataField());
-            dataForDb.setSource(newData.getSource());
-            dataForDb.setDateOfDownload(newData.getDateOfDownload());
-            dataRepository.save(dataForDb);
-            return dataForDb;
-        } else {
-            return null;
-        }
+        optData.ifPresent(dataForDb -> {
+                    dataForDb = Data
+                            .builder()
+                            .dataField(newData.getDataField())
+                            .source(newData.getSource())
+                            .dateOfDownload(newData.getDateOfDownload())
+                            .build();
+                    dataRepository.save(dataForDb);
+                }
+        );
+        dataRepository.save(optData.orElse(newData));
     }
 
     @Override

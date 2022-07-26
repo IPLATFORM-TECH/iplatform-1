@@ -3,14 +3,15 @@ package space.eliseev.iplatform.service;
 import space.eliseev.iplatform.entity.Data;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface DataService {
 
-    Data findDataBySource(String name);
+    Optional<Data> findDataBySource(String source);
 
     List<Data> findAll();
 
-    Data updateData(Data newData);
+    void updateData(Data newData);
 
     void saveData(Data data);
 

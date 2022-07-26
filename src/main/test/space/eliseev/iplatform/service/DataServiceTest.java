@@ -1,9 +1,7 @@
 package space.eliseev.iplatform.service;
 
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,56 +13,95 @@ class DataServiceTest {
 
     @Autowired
     private DataService ds;
-    private final Data someData = new Data("some text for save", "sourceNameCom", 12042006);
+    Data someData1 = Data
+            .builder()
+            .dataField("some text1 for save")
+            .source("sourceName1Com")
+            .dateOfDownload(12042006)
+            .build();
 
     @BeforeEach
     void setUp() {
-        ds.saveData(someData);
+        ds.saveData(someData1);
+        for (int i = 2; i <= 10; i++) {
+            StringBuilder dataField = new StringBuilder("some text ");
+            dataField.append(i).append("sourceName");
+            StringBuilder source = new StringBuilder("sourceName");
+            source.append(i).append("com");
+            ds.saveData(Data
+                    .builder()
+                    .dataField(dataField.toString())
+                    .source(source.toString())
+                    .dateOfDownload(12042006)
+                    .build());
+        }
     }
 
     @AfterEach
     void tearDown() {
-        for (Data data: ds.findAll()) {
+
+        for (Data data : ds.findAll()) {
             ds.deleteData(data);
         }
     }
 
     @Test
     void findAll() {
-        Assertions.assertEquals(someData, ds.findAll().get(0));
-        Assertions.assertNotEquals(new Data("false text", "strangeCom", 99889977), ds.findAll().get(0));
+        Assertions.assertEquals(someData1, ds.findAll().get(0));
+        Assertions.assertNotEquals(Data
+                        .builder()
+                        .dataField("false text")
+                        .source("strangeCom")
+                        .dateOfDownload(99889977)
+                        .build()
+                , ds.findAll().get(0));
     }
 
     @Test
     void findDataBySource() {
-        Assertions.assertEquals(someData, ds.findDataBySource("sourceNameCom"));
-        Assertions.assertNotEquals(new Data("false text", "strangeCom", 12042006), ds.findDataBySource("sourceNameCom"));
+
+        Assertions.assertTrue(ds.findDataBySource("sourceName1Com").isPresent());
+        Assertions.assertFalse(ds.findDataBySource("sourceNameCom").isPresent());
     }
 
     @Test
     void updateData() {
-        Data data = ds.findAll().get(0);
-        Data newData = new Data("other text for save", "sourceNameCom", 12042006);
-        newData.setId(data.getId());
+        Data oldData = ds.findAll().get(3);
+        Data newData = Data
+                .builder()
+                .id(oldData.getId())
+                .dataField("other text for save")
+                .source("sourceNameCom")
+                .dateOfDownload(12042006)
+                .build();
         ds.updateData(newData);
-        Assertions.assertEquals(newData, ds.findAll().get(0));
-        Assertions.assertNotEquals(data, ds.findAll().get(0));
+        Assertions.assertTrue(ds.findAll().contains(newData));
+        Assertions.assertFalse(ds.findAll().contains(oldData));
     }
 
     @Test
     void saveData() {
-        Data newData = new Data("saveDataTextTest", "sourceNameTest", 23041993);
+        Data newData = Data
+                .builder()
+                .dataField("saveDataTextTest")
+                .source("sourceNameTest")
+                .dateOfDownload(23041993)
+                .build();
         ds.saveData(newData);
-        Assertions.assertEquals(newData, ds.findAll().get(1));
-        Assertions.assertNotEquals(newData, ds.findAll().get(0));
+        Assertions.assertTrue(ds.findAll().contains(newData));
     }
 
     @Test
     void deleteData() {
-        Data newData = new Data("saveDataTextTest2", "sourceNameTest2", 23041993);
+        Data newData = Data
+                .builder()
+                .dataField("saveDataTextTest2")
+                .source("sourceNameTest2")
+                .dateOfDownload(23041993)
+                .build();
         ds.saveData(newData);
         Assertions.assertTrue(ds.findAll().contains(newData));
-        ds.deleteData(ds.findDataBySource("sourceNameTest2"));
+        ds.deleteData(ds.findDataBySource("sourceNameTest2").get());
         Assertions.assertFalse(ds.findAll().contains(newData));
     }
 }
