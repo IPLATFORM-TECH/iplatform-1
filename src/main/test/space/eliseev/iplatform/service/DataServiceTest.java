@@ -59,24 +59,18 @@ class DataServiceTest {
 
     @Test
     void findDataBySource() {
-
         Assertions.assertTrue(ds.findDataBySource("sourceName1Com").isPresent());
         Assertions.assertFalse(ds.findDataBySource("sourceNameCom").isPresent());
     }
 
     @Test
     void updateData() {
-        Data oldData = ds.findAll().get(3);
-        Data newData = Data
-                .builder()
-                .id(oldData.getId())
-                .dataField("other text for save")
-                .source("sourceNameCom")
-                .dateOfDownload(12042006)
-                .build();
-        ds.updateData(newData);
-        Assertions.assertTrue(ds.findAll().contains(newData));
-        Assertions.assertFalse(ds.findAll().contains(oldData));
+        Data dataFromDb = ds.findAll().get(3);
+        String oldSource = dataFromDb.getSource();
+        dataFromDb.setSource("sourceNameCom");
+        ds.updateData(dataFromDb);
+        Assertions.assertTrue(ds.findDataBySource("sourceNameCom").isPresent());
+        Assertions.assertFalse(ds.findDataBySource(oldSource).isPresent());
     }
 
     @Test

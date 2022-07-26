@@ -28,18 +28,8 @@ public class DataServiceImpl implements DataService {
 
     @Override
     public void updateData(Data newData) {
-        Optional<Data> optData = dataRepository.findById(newData.getId());
-        optData.ifPresent(dataForDb -> {
-                    dataForDb = Data
-                            .builder()
-                            .dataField(newData.getDataField())
-                            .source(newData.getSource())
-                            .dateOfDownload(newData.getDateOfDownload())
-                            .build();
-                    dataRepository.save(dataForDb);
-                }
-        );
-        dataRepository.save(optData.orElse(newData));
+        dataRepository.save(newData);
+
     }
 
     @Override

@@ -13,7 +13,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @ToString
 @EqualsAndHashCode
 @Document
-@Builder()
+@Builder
 public class Data {
     @Id
     private String id;
