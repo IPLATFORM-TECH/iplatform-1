@@ -8,17 +8,17 @@
  * Legal use of the software provides receipt of a license from the right holder only.
  */
 
-package main.java.space.eliseev.iplatform;
+package space.eliseev.iplatform;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
 /**
  * @author <a href="mailto:a.s.eliseev@yandex.ru">Aleksandr Eliseev</a>
  */
-@SpringBootApplication
+@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
 public class IplatformApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(IplatformApplication.class, args);
     }
