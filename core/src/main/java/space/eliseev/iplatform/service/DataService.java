@@ -16,4 +16,7 @@ public interface DataService {
     void saveData(Data data);
 
     void deleteData(Data data);
+
+    void getFinancialData(Data data);
+    void getNonFinancialData(Data data);
 }
