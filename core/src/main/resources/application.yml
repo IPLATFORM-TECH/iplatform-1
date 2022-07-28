@@ -5,3 +5,9 @@ spring:
     name: i-platform
   config:
     import: stock.yml
+  data:
+    mongodb:
+      database: test
+      uri: mongodb://localhost:27017/test
+      port: 27017
+      host: localhost
