@@ -1,4 +1,4 @@
-package main.java.space.eliseev.iplatform.config;
+package space.eliseev.iplatform.config;
 
 import liquibase.pro.packaged.S;
 import org.junit.jupiter.api.Test;
