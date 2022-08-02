@@ -40,4 +40,14 @@ public class DataServiceImpl implements DataService {
     public void deleteData(Data data) {
         dataRepository.delete(data);
     }
+
+    @Override
+    public void getFinancialData(Data data) {
+
+    }
+
+    @Override
+    public void getNonFinancialData(Data data) {
+
+    }
 }
