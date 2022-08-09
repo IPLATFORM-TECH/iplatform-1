@@ -13,11 +13,13 @@ package space.eliseev.iplatform;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /**
  * @author <a href="mailto:a.s.eliseev@yandex.ru">Aleksandr Eliseev</a>
  */
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
+@EnableFeignClients
 public class IplatformApplication {
     public static void main(String[] args) {
         SpringApplication.run(IplatformApplication.class, args);

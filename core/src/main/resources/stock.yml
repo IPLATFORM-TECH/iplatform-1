@@ -1,5 +1,6 @@
 stock:
   urls:
+    - https://api.twelvedata.com
     - www.google.com
     - www.youtube.com
     - microsoft.com

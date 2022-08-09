@@ -1,27 +1,34 @@
 package space.eliseev.iplatform.controller;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+import space.eliseev.iplatform.client.ApiService;
 import space.eliseev.iplatform.entity.Data;
 import space.eliseev.iplatform.service.DataService;
 
-@Controller
-@RequestMapping
-public class DataController {
+@RestController
+public class DataController implements ApiService {
 
     private final DataService dataService;
+    private final ApiService apiService;
 
-    public DataController(DataService dataService) {
+    @Autowired
+    public DataController(DataService dataService, ApiService apiService) {
         this.dataService = dataService;
+        this.apiService = apiService;
     }
 
-    @RequestMapping("getFinancialData")
-    public void getFinancialData(Data data) {
-        dataService.getFinancialData(data);
+    @GetMapping("/stocks")
+    public Object getStocks() {
+        //dataService.getFinancialData(data);
+        return apiService.getStocks();
     }
 
-    @RequestMapping("getNonFinancialData")
+    @GetMapping("getNonFinancialData")
     public void getNonFinancialData(Data data) {
-        dataService.getNonFinancialData(data);
+        //dataService.getNonFinancialData(data);
     }
+
+
 }
