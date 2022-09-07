@@ -9,8 +9,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>core</module>
-        <module>form-builder</module>
+
     </modules>
 
     <properties>
