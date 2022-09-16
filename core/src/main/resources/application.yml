@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: iplatform
+  datasource:
+    driverClassName: org.postgresql.Driver
+    username: @db-username@
+    password: @db-password@
+    url: @db-url@
+  jpa:
+    hibernate:
+      ddl-auto: none
+  liquibase:
+    enabled: true
+#client:
+#  post:
+#    baseUrl: https://iss.moex.com/iss
